@@ -20,7 +20,7 @@ export function CategoriesList() {
   }
   return (
     <div className="w-3/4 mx-auto pt-8 text-center">
-      <div className='text-4xl md:text-6xl pb-4 text-start border-b-gray-600 border-b-2 mb-6'>Categories</div>
+      <div className='text-4xl md:text-6xl pb-4 text-start border-b-gray-300 border-b-2 mb-6'>Categories</div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {error && <div>Error: {error.message}</div>}
         {categories.map(category => (

@@ -1,13 +1,35 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Select, { components } from 'react-select';
 import { Button, Label, TextInput } from "flowbite-react"
 import { FaSearch } from 'react-icons/fa';
 import { filterAssessmentsByName } from "../api/assessments.api";
-import _ from 'lodash';
 
+const Option = (props) => {
+    if (props.data.value === 'search-option') {
+        return (
+            <components.Option {...props}>
+                <div className="text-blue-500">
+                    {props.data.label}
+                </div>
+            </components.Option>
+        );
+    }
+    return (
+        <components.Option {...props}>
+            <div>
+                {props.data.label}
+            </div>
+            <div className="italic text-gray-400">
+                {props.data.subcategory_name}
+            </div>
+        </components.Option>
+    );
+};
 
 export function SearchAssessmentsBar() {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
+    const [selectedOption, setSelectedOption] = useState(null);
     const searchTimeout = useRef(null);
 
     useEffect(() => {
@@ -25,42 +47,54 @@ export function SearchAssessmentsBar() {
             if (query) {
                 const res = await filterAssessmentsByName(query);
                 if (res.data && res.data.results) {
-                    console.log(res.data.results);
-                    setResults(res.data.results.slice(0, 5));
+                    const newResults = res.data.results.slice(0, 5).map(item => ({
+                        value: item.id,
+                        label: item.name,
+                        subcategory_name: item.subcategory_name
+                    }));
+                    newResults.push({
+                        value: "search-option",
+                        label: `Or search by ${query}`,
+                        subcategory_name: ""
+                    });
+
+                    setResults(newResults);
                 }
             } else {
                 setResults([]);
             }
         }, 300);
     }
+
+    const handleInputChange = (newValue) => {
+        setQuery(newValue);
+    };
+
+    const handleChange = (selectedOption) => {
+        setSelectedOption(selectedOption);
+    };
+
     return (
-        <div className="w-3/4 mx-auto pt-24 text-center">
+        <div className="w-3/4 mx-auto pt-28 text-center">
             <div className="md:px-24">
-                <div className="pb-4 text-start ps-2">
-                    <Label value="Search" className="text-2xl md:text-3xl" />
+                <div className="pb-4 text-start">
+                    <Label value="Search for assessments..." className="text-2xl md:text-3xl" />
                 </div>
-                <div className="relative flex items-center bg-white rounded-lg">
-                    <TextInput
-                        id="assessments"
-                        placeholder="Search for assessments..."
-                        type="text"
-                        className="flex-grow p-2 rounded-l-lg bg-white"
-                        value={query}
-                        onChange={e => setQuery(e.target.value)}
+                <div className="relative flex py-2 rounded-lg text-start">
+                    <Select
+                        value={selectedOption}
+                        onInputChange={handleInputChange}
+                        onChange={handleChange}
+                        options={results}
+                        isSearchable
+                        placeholder="Example: Python easy level..."
+                        className="flex-grow rounded-l-lg text-start"
+                        components={{ Option }}
                     />
-                    <Button type="button" className="flex items-center bg-gray-100 text-stone-700 rounded-r-lg enabled:hover:bg-gray-200">
+                    <Button type="button" className="ms-2 flex items-center bg-gray-100 text-stone-700 rounded-r-lg enabled:hover:bg-gray-200">
                         <FaSearch className="mr-2" />
                         Search
                     </Button>
-                    {results.length > 0 && (
-                        <div className="absolute mt-20 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-10">
-                            {results.map((item, index) => (
-                                <div key={index} className="p-2 hover:bg-gray-100">
-                                    {item.name}
-                                </div>
-                            ))}
-                        </div>
-                    )}
                 </div>
             </div>
         </div>
