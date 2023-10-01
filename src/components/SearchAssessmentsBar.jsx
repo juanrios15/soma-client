@@ -29,6 +29,7 @@ const Option = (props) => {
 export function SearchAssessmentsBar() {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
+    const [isClearable, setIsClearable] = useState(true);
     const [selectedOption, setSelectedOption] = useState(null);
     const searchTimeout = useRef(null);
 
@@ -86,6 +87,7 @@ export function SearchAssessmentsBar() {
                         onInputChange={handleInputChange}
                         onChange={handleChange}
                         options={results}
+                        isClearable={isClearable}
                         isSearchable
                         placeholder="Example: Python easy level..."
                         className="flex-grow rounded-l-lg text-start"

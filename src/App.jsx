@@ -5,19 +5,22 @@ import { AssessmentsPage } from './pages/AssessmentsPage'
 import { HomePage } from './pages/HomePage'
 import { RankingsPage } from './pages/RankingsPage'
 import { ContactUsPage } from './pages/ContactUsPage'
-
+import { Footer } from './components/Footer'
 
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className="flex flex-col min-h-screen">
         <Navigation />
+        <div className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/assessments" element={<AssessmentsPage />} />
           <Route path="/rankings" element={<RankingsPage />} />
           <Route path="/contact-us" element={<ContactUsPage />} />
         </Routes>
+        </div>
+        <Footer/>
       </div>
     </BrowserRouter>
   )
