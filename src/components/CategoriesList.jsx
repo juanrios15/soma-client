@@ -9,6 +9,7 @@ export function CategoriesList() {
   useEffect(() => {
     loadCategories();
   }, []);
+
   async function loadCategories() {
     try {
       const res = await getAllCategories();

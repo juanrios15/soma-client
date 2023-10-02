@@ -1,22 +1,38 @@
 import { useState, useEffect } from "react";
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { getAllAssessments } from "../../api/assessments.api";
+import { filterAssessments } from "../../api/assessments.api";
 import { AssessmentCard } from "./AssessmentCard";
 
 
-export function AssessmentsList() {
+export function AssessmentsList({ filters }) {
     const [assessments, setAssessments] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
 
     useEffect(() => {
+        setAssessments([]);
+        setCurrentPage(1);
+        setHasMore(true);
+    }, [filters]);
+
+    useEffect(() => {
         loadAssessments();
-    }, [currentPage]);
+    }, [currentPage, filters]);
 
     async function loadAssessments() {
         try {
-            const res = await getAllAssessments(currentPage);
-            setAssessments([...assessments].concat(res.data.results));
+            const params = {
+                ...(filters.name && { name: filters.name }),
+                ...(filters.subcategories && { subcategory: filters.subcategories }),
+                page: currentPage
+            };
+            console.log('params', params)
+            const res = await filterAssessments(params);
+            if (currentPage === 1) {
+                setAssessments(res.data.results);
+            } else {
+                setAssessments([...assessments].concat(res.data.results));
+            }
             console.log(res.data);
             if (!res.data.next) {
                 setHasMore(false);

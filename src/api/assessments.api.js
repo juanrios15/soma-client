@@ -16,6 +16,7 @@ export const filterAssessments = (params) => {
         ...(params.numberOfQuestions && { 'number_of_questions__gte': params.numberOfQuestions }),
         ...(params.allowedAttempts && { 'allowed_attempts__gte': params.allowedAttempts }),
         ...(params.difficulty && { 'difficulty__gte': params.difficulty }),
+        page: params.page || 1,
     };
 
     const queryString = new URLSearchParams(queryParameters).toString();
