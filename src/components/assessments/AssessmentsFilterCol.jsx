@@ -50,8 +50,11 @@ export function AssessmentsFilterCol({ onNameFilterChange, onToggleSubcategory, 
 
     return (
         <div className="hidden md:block md:col-span-3 border-r border-gray-300 p-4">
+            <div className='text-3xl border-b pb-1'>
+                Filter
+            </div>
             <form onSubmit={handleSearch}>
-                <label htmlFor="search-input" className="block mb-2">By name</label>
+                <label htmlFor="search-input" className="block mb-2 py-2 text-2xl">By name</label>
                 <div className="flex items-center">
                     <input
                         type="text"
@@ -65,6 +68,7 @@ export function AssessmentsFilterCol({ onNameFilterChange, onToggleSubcategory, 
                         <FaSearch />
                     </button>
                 </div>
+                <label htmlFor="search-input" className="block mb-2 py-2 text-2xl">By category</label>
                 {categories.map(category => (
                     <div key={category.id} className="category-container">
                         <div className="flex justify-between items-center mb-2 cursor-pointer" onClick={() => toggleCategoryExpansion(category.id)}>

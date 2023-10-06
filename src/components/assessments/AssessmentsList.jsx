@@ -26,14 +26,12 @@ export function AssessmentsList({ filters }) {
                 ...(filters.subcategories && { subcategory: filters.subcategories }),
                 page: currentPage
             };
-            console.log('params', params)
             const res = await filterAssessments(params);
             if (currentPage === 1) {
                 setAssessments(res.data.results);
             } else {
                 setAssessments([...assessments].concat(res.data.results));
             }
-            console.log(res.data);
             if (!res.data.next) {
                 setHasMore(false);
             }

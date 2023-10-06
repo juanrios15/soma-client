@@ -15,7 +15,6 @@ export function CategoriesList() {
       const res = await getAllCategories();
       setCategories(res.data.results);
     } catch (error) {
-      console.error('Error fetching categories:', error);
       setError(error);
     }
   }

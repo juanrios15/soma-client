@@ -15,7 +15,6 @@ export function AssessmentsPage() {
     const handleToggleSubcategory = (subcategoryId) => {
         setFilters(prevFilters => {
             const { subcategories } = prevFilters;
-            console.log(prevFilters);
 
             const newSubcategories = subcategories.includes(subcategoryId)
                 ? subcategories.filter(id => id !== subcategoryId)
