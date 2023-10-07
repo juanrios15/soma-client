@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { FaUserPlus, FaSignInAlt, FaUser, FaStar, FaUsers, FaSignOutAlt } from "react-icons/fa";
 import { getUser } from "../api/users.api";
+import { Link } from 'react-router-dom';
+
 
 export function SideBar() {
     const [user, setUser] = useState([]);
@@ -23,14 +25,15 @@ export function SideBar() {
 
     const renderNoToken = () => (
         <>
-            <div className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
+            
+            <Link to="/register" className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
                 <FaUserPlus className="text-3xl" />
                 <span>Register</span>
-            </div>
-            <div className="flex flex-col items-center space-y-2 py-2 px-1 cursor-pointer">
+            </Link>
+            <Link to="/login" className="flex flex-col items-center space-y-2 py-2 px-1 cursor-pointer">
                 <FaSignInAlt className="text-3xl" />
                 <span>Login</span>
-            </div>
+            </Link>
         </>
     );
 

@@ -8,6 +8,9 @@ import { ContactUsPage } from './pages/ContactUsPage'
 import { Footer } from './components/Footer'
 import { SideBar } from './components/SideBar'
 import { AssessmentDetailPage } from './pages/AssessmentDetailPage'
+import { RegisterPage } from './pages/RegisterPage'
+import { LoginPage } from './pages/LoginPage'
+
 
 function App() {
   return (
@@ -20,6 +23,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/assessments" element={<AssessmentsPage />} />
           <Route path="/assessments/:id" element={<AssessmentDetailPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/rankings" element={<RankingsPage />} />
           <Route path="/contact-us" element={<ContactUsPage />} />
         </Routes>
