@@ -15,7 +15,6 @@ export function AssessmentDetailPage() {
     async function loadAssessmentDetail() {
         try {
             const res = await getAssessment(id);
-            console.log(res);
             setAssessment(res.data);
         } catch (error) {
             setError(error);
