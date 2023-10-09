@@ -1,9 +1,26 @@
 import { Button } from 'flowbite-react';
-import React from 'react'
+import React, { useState } from 'react'
 import { FaPencilAlt, FaStar } from 'react-icons/fa';
-
+import { startAttempt } from '../../api/attempts.api';
+import { useNavigate } from 'react-router-dom';
 
 export function AssessmentDetail({ assessment }) {
+    const navigate = useNavigate();
+    const [apiError, setApiError] = useState(null);
+    const handleStartClick = async () => {
+        try {
+            const data = {
+                assessment: assessment.id,
+                user: assessment.user
+            };
+            const response = await startAttempt(data);
+            setApiError(null);
+            navigate(`/attempts/${response.data.id}`);
+        } catch (error) {
+            console.error(error);
+            setApiError(error.response?.data ?? 'An error occurred');
+        }
+    };
     const formatDifficulty = (difficulty) => {
         return difficulty.toFixed(2);
     }
@@ -74,8 +91,12 @@ export function AssessmentDetail({ assessment }) {
                                 </div>
                             </div>
                             <div className='flex mt-3'>
-                                <Button type="button" className="bg-gray-100 text-stone-700 rounded-r-lg enabled:hover:bg-gray-200">
-                                    Start assessment
+                                <Button
+                                    type="button"
+                                    className="bg-gray-100 text-stone-700 rounded-r-lg enabled:hover:bg-gray-200"
+                                    disabled={assessment.available_attempts <= 0}
+                                    onClick={handleStartClick}>
+                                    Start attempt
                                 </Button>
                                 <Button type="button" className="ms-2 bg-gray-100 text-stone-700 rounded-r-lg enabled:hover:bg-gray-200">
                                     <FaStar />

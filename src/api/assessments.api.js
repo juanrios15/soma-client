@@ -3,8 +3,12 @@ import axios from "axios";
 const assessmentsApi = axios.create({
     baseURL: 'http://localhost:8000/assessments/'
 })
+const getAuthHeaders = () => {
+    const token = localStorage.getItem("token");
+    return token ? { Authorization: `Token ${token}` } : {};
+};
 
-export const getAssessment = (assessment_id) => assessmentsApi.get(`assessments/${assessment_id}`)
+export const getAssessment = (assessment_id) => assessmentsApi.get(`assessments/${assessment_id}`, { headers: getAuthHeaders() })
 export const getAllAssessments = () => assessmentsApi.get('assessments/')
 export const filterAssessmentsByName = (name) => assessmentsApi.get(`assessments/?name__icontains=${name}`)
 export const getAllCategories = () => assessmentsApi.get('categories/')
