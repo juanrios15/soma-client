@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getAttempt } from '../api/attempts.api';
+import { finalizeAttempt, getAttempt } from '../api/attempts.api';
 import { Timer } from '../components/attempts/Timer';
 import { QuestionsList } from '../components/attempts/QuestionsList';
+
 
 export function AttemptPage() {
     const { id } = useParams();
     const [attempt, setAttempt] = useState(null);
     const [questions, setQuestions] = useState([]);
+    const [showResults, setShowResults] = useState(false);
+    const [results, setResults] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -32,13 +35,41 @@ export function AttemptPage() {
             const res = await getAttempt(id);
             console.log(res);
             setAttempt(res.data);
-            setError(null);
+            setResults({
+                score: res.data.score,
+                approved: res.data.approved
+            });
+            if (res.data.is_finished) {
+                setShowResults(true);
+            }
+            else {
+                const startTime = new Date(res.data.start_time);
+                const currentTime = new Date();
+                const timeLimitInMs = res.data.assessment_time_limit * 60 * 1000;
+                if (currentTime - startTime >= timeLimitInMs) {
+                    setShowResults(true);
+                }
+                setError(null);
+            }
         } catch (error) {
             console.error(error);
             setError(error);
             setAttempt(null);
         }
     }
+
+    const handleEndAttempt = async (userResponses) => {
+        try {
+            console.log("esta entrando aca", userResponses);
+            const res = await finalizeAttempt(id, userResponses);
+            setResults(res.data);
+            console.log(res.data);
+            setShowResults(true);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     if (error) {
         return <div className="pt-28">Error loading attempt: {error.message}</div>;
     }
@@ -47,7 +78,7 @@ export function AttemptPage() {
         return <div className="pt-28">Loading attempt...</div>;
     }
 
-    if (questions.length === 0) {
+    if (questions.length === 0 && !showResults) {
         return (
             <div className="pt-28">
                 <h2>This assessment is now closed.</h2>
@@ -56,8 +87,18 @@ export function AttemptPage() {
         );
     }
 
+    if (showResults) {
+        return <div className="pt-28 flex flex-col items-center">
+            <div className='text-2xl pb-2'>Your score is:</div>
+            <div className="text-8xl font-bold mb-4">{results.score}</div>
+            <div className="text-3xl font-medium">
+                {results.approved ? 'You passed' : 'You failed!'}
+            </div>
+        </div>
+    }
+
     return <div className="pt-28">
         <Timer assessment_time_limit={attempt.assessment_time_limit} start_time={attempt.start_time} />
-        <QuestionsList questions={questions} />
+        <QuestionsList questions={questions} onEndAttempt={handleEndAttempt} />
     </div>
 }

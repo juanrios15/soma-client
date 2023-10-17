@@ -19,18 +19,18 @@ function App() {
         <Navigation />
         <SideBar />
         <div className="flex-grow">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/assessments" element={<AssessmentsPage />} />
-          <Route path="/assessments/:id" element={<AssessmentDetailPage />} />
-          <Route path="/attempts/:id" element={<AttemptPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/rankings" element={<RankingsPage />} />
-          <Route path="/contact-us" element={<ContactUsPage />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/assessments" element={<AssessmentsPage />} />
+            <Route path="/assessments/:id" element={<AssessmentDetailPage />} />
+            <Route path="/attempts/:id" element={<AttemptPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/rankings" element={<RankingsPage />} />
+            <Route path="/contact-us" element={<ContactUsPage />} />
+          </Routes>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </BrowserRouter>
   )

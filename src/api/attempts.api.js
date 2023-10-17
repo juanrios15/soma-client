@@ -10,3 +10,11 @@ const getAuthHeaders = () => {
 
 export const startAttempt = (data) => attemptsApi.post('attempts/', data, { headers: getAuthHeaders() })
 export const getAttempt = (attempt_id) => attemptsApi.get(`attempts/${attempt_id}`, { headers: getAuthHeaders() })
+export const finalizeAttempt = (attempt_id, data) => {
+    const endpoint = `attempts/${attempt_id}/finalize_attempt/`;
+    const config = { 
+        headers: getAuthHeaders() 
+    };
+
+    return attemptsApi.post(endpoint, data, config);
+}

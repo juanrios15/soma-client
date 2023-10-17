@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Button } from 'flowbite-react';
+import { Button, Modal } from 'flowbite-react';
+import { EndAttemptModal } from './EndAttemptModal';
 
-export function QuestionsList({ questions }) {
+export function QuestionsList({ questions, onEndAttempt }) {
     const [userResponses, setUserResponses] = useState([]);
+    const [openModal, setOpenModal] = useState(undefined);
+
     const handleChoiceChange = (questionId, choiceId) => {
         const updatedResponses = [...userResponses];
         let response = updatedResponses.find(r => r.question_id === questionId);
@@ -39,12 +42,18 @@ export function QuestionsList({ questions }) {
             ))}
             <div className="flex mt-4">
                 <Button
-                    type="submit"
                     color="success"
                     className="w-auto"
+                    onClick={() => setOpenModal('endAttempt')}
                 >
                     End Attempt
                 </Button>
+                <EndAttemptModal
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                    onEndAttempt={onEndAttempt}
+                    userResponses={userResponses}
+                />
             </div>
         </div>
     );
