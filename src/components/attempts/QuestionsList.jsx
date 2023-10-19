@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'flowbite-react';
 import { EndAttemptModal } from './EndAttemptModal';
+import { Timer } from './Timer';
 
-export function QuestionsList({ questions, onEndAttempt }) {
+
+export function QuestionsList({ attempt, questions, onEndAttempt }) {
     const [userResponses, setUserResponses] = useState([]);
     const [openModal, setOpenModal] = useState(undefined);
 
@@ -21,6 +23,11 @@ export function QuestionsList({ questions, onEndAttempt }) {
     };
     return (
         <div className="p-4">
+            <Timer
+                assessment_time_limit={attempt.assessment_time_limit}
+                start_time={attempt.start_time}
+                onEndAttempt={onEndAttempt}
+                userResponses={userResponses} />
             {questions.map((question, index) => (
                 <div key={index} className="p-4 border rounded-md mb-4">
                     <h2 className="text-xl font-bold mb-2">{question.description}</h2>

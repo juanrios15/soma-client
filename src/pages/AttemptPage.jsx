@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { finalizeAttempt, getAttempt } from '../api/attempts.api';
-import { Timer } from '../components/attempts/Timer';
 import { QuestionsList } from '../components/attempts/QuestionsList';
 
 
@@ -33,7 +32,6 @@ export function AttemptPage() {
     async function loadAttempt() {
         try {
             const res = await getAttempt(id);
-            console.log(res);
             setAttempt(res.data);
             setResults({
                 score: res.data.score,
@@ -60,7 +58,6 @@ export function AttemptPage() {
 
     const handleEndAttempt = async (userResponses) => {
         try {
-            console.log("esta entrando aca", userResponses);
             const res = await finalizeAttempt(id, userResponses);
             setResults(res.data);
             console.log(res.data);
@@ -98,7 +95,9 @@ export function AttemptPage() {
     }
 
     return <div className="pt-28">
-        <Timer assessment_time_limit={attempt.assessment_time_limit} start_time={attempt.start_time} />
-        <QuestionsList questions={questions} onEndAttempt={handleEndAttempt} />
+        <QuestionsList
+            attempt={attempt}
+            questions={questions}
+            onEndAttempt={handleEndAttempt} />
     </div>
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-export function Timer({ start_time, assessment_time_limit }) {
+export function Timer({ start_time, assessment_time_limit, onEndAttempt, userResponses }) {
     const [timeLeft, setTimeLeft] = useState(null);
     useEffect(() => {
         const startTime = new Date(start_time).getTime();
@@ -10,11 +10,15 @@ export function Timer({ start_time, assessment_time_limit }) {
             const now = new Date().getTime();
             const elapsedTime = now - startTime;
             const remainingTime = timeLimitMillis - elapsedTime;
-            setTimeLeft(Math.max(0, remainingTime)); // Evita mostrar tiempo negativo
+            setTimeLeft(Math.max(0, remainingTime));
+            if (remainingTime <= 0) {
+                onEndAttempt(userResponses);
+                clearInterval(timerId);
+            }
         };
         const timerId = setInterval(calculateTimeLeft, 1000);
         return () => clearInterval(timerId);
-    }, [start_time, assessment_time_limit]);
+    }, [start_time, assessment_time_limit, userResponses]);
     const minutes = Math.floor(timeLeft / (60 * 1000));
     const seconds = Math.floor((timeLeft / 1000) % 60);
     return (
