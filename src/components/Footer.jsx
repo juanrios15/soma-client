@@ -1,8 +1,5 @@
 import React from 'react';
 import { FaInstagram, FaFacebook } from 'react-icons/fa';
-<span class="f6 color-fg-muted">
-    © 2023 GitHub, Inc.
-</span>
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
