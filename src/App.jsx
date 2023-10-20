@@ -11,6 +11,7 @@ import { AssessmentDetailPage } from './pages/AssessmentDetailPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { LoginPage } from './pages/LoginPage'
 import { AttemptPage } from './pages/AttemptPage'
+import { ProfilePage } from './pages/ProfilePage'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/attempts/:id" element={<AttemptPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/profile/:id" element={<ProfilePage />} />
             <Route path="/rankings" element={<RankingsPage />} />
             <Route path="/contact-us" element={<ContactUsPage />} />
           </Routes>

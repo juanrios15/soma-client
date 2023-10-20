@@ -10,4 +10,5 @@ const getAuthHeaders = () => {
 
 
 export const getUser = () => usersApi.get(`users/me/`, { headers: getAuthHeaders() })
+export const getUserDetail = (id) => usersApi.get(`users/${id}`, { headers: getAuthHeaders() })
 export const registerUser = (data) => usersApi.post('users/', data)

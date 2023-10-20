@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export function SideBar() {
     const navigate = useNavigate();
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState({ data: {} });
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ export function SideBar() {
         }
         try {
             const res = await getUser();
-            setUser(res);
+            setUser(res.data);
         } catch (error) {
             setError(error);
             localStorage.removeItem("token");
@@ -50,10 +50,10 @@ export function SideBar() {
 
     const renderToken = () => (
         <>
-            <div className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
+            <Link to={`/profile/${user.id}`} className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
                 <FaUser className="text-3xl" />
                 <span>Profile</span>
-            </div>
+            </Link>
             <div className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
                 <FaStar className="text-3xl" />
                 <span>Favorites</span>
