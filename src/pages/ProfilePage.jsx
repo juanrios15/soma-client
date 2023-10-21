@@ -7,7 +7,7 @@ export function ProfilePage() {
     const { id } = useParams();
 
     return (
-        <div className="pt-28 px-20"><Profile profile_id={id} /></div>
+        <div className="pt-28 px-4 md:px-40"><Profile profile_id={id} /></div>
     )
 }
 

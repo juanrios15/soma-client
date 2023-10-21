@@ -38,11 +38,11 @@ export function SideBar() {
         <>
 
             <Link to="/register" className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
-                <FaUserPlus className="text-3xl" />
+                <FaUserPlus className="text-2xl" />
                 <span>Register</span>
             </Link>
             <Link to="/login" className="flex flex-col items-center space-y-2 py-2 px-1 cursor-pointer">
-                <FaSignInAlt className="text-3xl" />
+                <FaSignInAlt className="text-2xl" />
                 <span>Login</span>
             </Link>
         </>
@@ -51,26 +51,26 @@ export function SideBar() {
     const renderToken = () => (
         <>
             <Link to={`/profile/${user.id}`} className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
-                <FaUser className="text-3xl" />
+                <FaUser className="text-2xl" />
                 <span>Profile</span>
             </Link>
-            <div className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
-                <FaStar className="text-3xl" />
-                <span>Favorites</span>
-            </div>
-            <div className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
-                <FaUsers className="text-3xl" />
+            <Link to={`/profile/${user.id}?tab=social`} className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
+                <FaUsers className="text-2xl" />
                 <span>Social</span>
-            </div>
+            </Link>
+            <Link to={`/profile/${user.id}?tab=favorites`} className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
+                <FaStar className="text-2xl" />
+                <span>Favorites</span>
+            </Link>
             <div onClick={handleLogout} className="flex flex-col items-center space-y-2 py-2 px-1 cursor-pointer">
-                <FaSignOutAlt className="text-3xl" />
+                <FaSignOutAlt className="text-2xl" />
                 <span>Logout</span>
             </div>
         </>
     );
 
     return (
-        <div className="fixed right-0 top-1/2 transform -translate-y-1/2 bg-gray-100 p-2 shadow-md rounded-l-md">
+        <div className="fixed right-0 top-1/2 transform -translate-y-1/2 bg-gray-50 p-2 shadow rounded-l-md">
             {token && !error ? renderToken() : renderNoToken()}
         </div>
     );
