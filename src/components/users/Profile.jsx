@@ -6,6 +6,7 @@ import { ProfileStats } from './ProfileStats';
 import { Button } from 'flowbite-react';
 import { UserSocial } from './UserSocial';
 import { useLocation } from 'react-router-dom';
+import { UserFavorites } from './UserFavorites';
 
 
 export function Profile({ profile_id }) {
@@ -23,7 +24,7 @@ export function Profile({ profile_id }) {
   const TABS = [
     { id: 'profile', label: 'Profile', content: <ProfileStats profile={profile} /> },
     { id: 'social', label: 'Social', content: <UserSocial user_id={profile_id} /> },
-    { id: 'favorites', label: 'Favorites', content: 'Favorites content here...' },
+    { id: 'favorites', label: 'Favorites',content: <UserFavorites user_id={profile_id} /> },
   ];
   if (profile?.is_self) {
     TABS.push({ id: 'attempts', label: 'Attempts', content: <UserAttempts user_id={profile_id} /> });

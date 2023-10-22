@@ -51,7 +51,11 @@ export function SideBar() {
     const renderToken = () => (
         <>
             <Link to={`/profile/${user.id}`} className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
-                <FaUser className="text-2xl" />
+                {user.picture ? (
+                    <img src={user.picture} className="rounded-md object-cover w-10 h-10" />
+                ) : (
+                    <FaUser className="text-2xl" />
+                )}
                 <span>Profile</span>
             </Link>
             <Link to={`/profile/${user.id}?tab=social`} className="flex flex-col items-center space-y-2 border-b-2 py-2 px-1 cursor-pointer">
