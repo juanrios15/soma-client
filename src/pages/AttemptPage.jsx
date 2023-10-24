@@ -27,6 +27,13 @@ export function AttemptPage() {
                 setQuestions(JSON.parse(localQuestions));
             }
         }
+        const handleUnload = () => {
+            localStorage.removeItem('questions');
+        };
+        window.addEventListener('beforeunload', handleUnload);
+        return () => {
+            window.removeEventListener('beforeunload', handleUnload);
+        };
     }, [attempt]);
 
     async function loadAttempt() {
@@ -62,6 +69,7 @@ export function AttemptPage() {
             setResults(res.data);
             console.log(res.data);
             setShowResults(true);
+            localStorage.removeItem('questions');
         } catch (error) {
             console.error(error);
         }
