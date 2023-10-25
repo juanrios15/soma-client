@@ -42,7 +42,8 @@ export function AttemptPage() {
             setAttempt(res.data);
             setResults({
                 score: res.data.score,
-                approved: res.data.approved
+                approved: res.data.approved,
+                points_obtained: res.data.points_obtained
             });
             if (res.data.is_finished) {
                 setShowResults(true);
@@ -98,6 +99,9 @@ export function AttemptPage() {
             <div className="text-8xl font-bold mb-4">{results.score}</div>
             <div className="text-3xl font-medium">
                 {results.approved ? 'You passed' : 'You failed!'}
+            </div>
+            <div>
+                Points Obtained: {results.points_obtained}
             </div>
         </div>
     }
