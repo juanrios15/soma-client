@@ -51,10 +51,24 @@ export function AssessmentDetail({ assessment }) {
                 <div className="md:col-span-3">
                     <div className="grid md:grid-cols-5">
                         <div className="md:col-span-4">
-                            <div className="text-4xl font-bold pb-1">{assessment.name}</div>
-                            <div className="text-gray-500">
-                                Created by {assessment.user_username}, {" "}
-                                {new Date(assessment.created_at).toLocaleDateString()}
+                            <div className="grid grid-cols-1 md:grid-cols-3">
+                                <div className="col-span-2">
+                                    <div className="text-4xl font-bold pb-1">{assessment.name}</div>
+                                    <div className="text-gray-500">
+                                        Created by {assessment.user_username}, {" "}
+                                        {new Date(assessment.created_at).toLocaleDateString()}
+                                    </div>
+                                </div>
+                                <div className="border rounded grid grid-cols-2 text-center items-center">
+                                    <div>
+                                        <div>Average Score</div>
+                                        <div className='font-bold'>{assessment.average_score} / 100</div>
+                                    </div>
+                                    <div>
+                                        <div>Total Attempts</div>
+                                        <div className='font-bold'>{assessment.attempts_count}</div>
+                                    </div>
+                                </div>
                             </div>
                             <div className="grid md:grid-cols-4 py-2 mt-8 mb-3 border rounded border-gray-200 text-center">
                                 <div className='text-xl italic'>

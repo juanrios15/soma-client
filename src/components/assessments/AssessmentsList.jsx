@@ -24,6 +24,8 @@ export function AssessmentsList({ filters }) {
             const params = {
                 ...(filters.name && { name: filters.name }),
                 ...(filters.subcategories && { subcategory: filters.subcategories }),
+                ...(filters.languages && { languages: filters.languages }),
+                ...(filters.ordering && { ordering: filters.ordering }),
                 page: currentPage
             };
             const res = await filterAssessments(params);

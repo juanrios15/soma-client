@@ -6,7 +6,8 @@ import { AssessmentsFilterCol } from "../components/assessments/AssessmentsFilte
 export function AssessmentsPage() {
     const [filters, setFilters] = useState({
         name: '',
-        subcategories: []
+        subcategories: [],
+        languages: []
     });
     const handleNameFilterChange = (name) => {
         setFilters(prevFilters => ({ ...prevFilters, name }));
@@ -23,11 +24,40 @@ export function AssessmentsPage() {
         });
     };
 
+    const handleToggleLanguage = (languageId) => {
+        setFilters(prevFilters => {
+            const isLanguageSelected = prevFilters.languages.includes(languageId);
+
+            if (isLanguageSelected) {
+                return {
+                    ...prevFilters,
+                    languages: prevFilters.languages.filter(id => id !== languageId)
+                };
+            } else {
+                return {
+                    ...prevFilters,
+                    languages: [...prevFilters.languages, languageId]
+                };
+            }
+        });
+    };
+
+    const handleToggleOrderBy = (orderByValue) => {
+        setFilters(prevFilters => {
+            return {
+                ...prevFilters,
+                ordering: orderByValue
+            };
+        });
+    };
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full p-4 pt-28 ">
             <AssessmentsFilterCol
                 onNameFilterChange={handleNameFilterChange}
                 onToggleSubcategory={handleToggleSubcategory}
+                onToggleLanguage={handleToggleLanguage}
+                onToggleOrderBy={handleToggleOrderBy}
                 filters={filters}
             />
             <AssessmentsList filters={filters} />
