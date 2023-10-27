@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { TextInput, Button } from 'flowbite-react';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import { login } from '../../api/base.api';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function LoginForm() {
   const {
@@ -78,6 +78,9 @@ export function LoginForm() {
       >
         Login
       </Button>
+      <Link to="/lostpassword" className="block text-center mt-2 text-blue-500 hover:scale-105">
+        Lost password?
+      </Link>
     </form>
   );
 }
