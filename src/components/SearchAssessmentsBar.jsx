@@ -3,30 +3,36 @@ import Select, { components } from 'react-select';
 import { Button, Label, TextInput } from "flowbite-react"
 import { FaSearch } from 'react-icons/fa';
 import { filterAssessmentsByName } from "../api/assessments.api";
+import { Link, useNavigate } from 'react-router-dom';
 
 const Option = (props) => {
     if (props.data.value === 'search-option') {
         return (
             <components.Option {...props}>
-                <div className="text-blue-500">
-                    {props.data.label}
-                </div>
+                <Link to={`/assessments/?search=${props.data.label}`} className="text-blue-500">
+                    <div>
+                        Or search by {props.data.label}
+                    </div>
+                </Link>
             </components.Option>
         );
     }
     return (
         <components.Option {...props}>
-            <div>
-                {props.data.label}
-            </div>
-            <div className="italic text-gray-400">
-                {props.data.subcategory_name}
-            </div>
+            <Link to={`/assessments/${props.data.value}`}>
+                <div>
+                    {props.data.label}
+                </div>
+                <div className="italic text-gray-400">
+                    {props.data.subcategory_name}
+                </div>
+            </Link>
         </components.Option>
     );
 };
 
 export function SearchAssessmentsBar() {
+    const navigate = useNavigate();
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [isClearable, setIsClearable] = useState(true);
@@ -55,7 +61,7 @@ export function SearchAssessmentsBar() {
                     }));
                     newResults.push({
                         value: "search-option",
-                        label: `Or search by ${query}`,
+                        label: `${query}`,
                         subcategory_name: ""
                     });
 
@@ -67,14 +73,29 @@ export function SearchAssessmentsBar() {
         }, 300);
     }
 
-    const handleInputChange = (newValue) => {
-        setQuery(newValue);
+
+
+    const handleInputChange = (newValue, actionMeta) => {
+        if (actionMeta.action === 'input-change') {
+            setQuery(newValue);
+        }
     };
 
     const handleChange = (selectedOption) => {
         setSelectedOption(selectedOption);
     };
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' && query) {
+            navigate(`/assessments/?search=${query}`);
+        }
+    };
+
+    const handleSearchClick = () => {
+        if (query) {
+            navigate(`/assessments/?search=${query}`);
+        }
+    };
     return (
         <div className="w-3/4 mx-auto pt-28 text-center">
             <div className="md:px-24">
@@ -88,12 +109,18 @@ export function SearchAssessmentsBar() {
                         onChange={handleChange}
                         options={results}
                         isClearable={isClearable}
+                        onKeyDown={handleKeyDown}
                         isSearchable
                         placeholder="Example: Python easy level..."
                         className="flex-grow rounded-l-lg text-start"
                         components={{ Option }}
                     />
-                    <Button type="button" className="ms-2 flex items-center bg-gray-100 text-stone-700 rounded-r-lg enabled:hover:bg-gray-200">
+                    <Button
+                        type="button"
+                        onClick={handleSearchClick}
+                        className="ms-2 flex items-center bg-gray-100 text-stone-700 rounded-r-lg enabled:hover:bg-gray-200"
+                        disabled={!query}
+                    >
                         <FaSearch className="mr-2" />
                         Search
                     </Button>

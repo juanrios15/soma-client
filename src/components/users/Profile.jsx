@@ -3,7 +3,7 @@ import { getUserDetail } from '../../api/users.api';
 import { FaUser, FaEdit } from 'react-icons/fa';
 import { UserAttempts } from './UserAttempts';
 import { ProfileStats } from './ProfileStats';
-import { Button } from 'flowbite-react';
+import { Button, Modal } from 'flowbite-react';
 import { UserSocial } from './UserSocial';
 import { useLocation } from 'react-router-dom';
 import { UserFavorites } from './UserFavorites';
@@ -13,6 +13,10 @@ export function Profile({ profile_id }) {
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
   const location = useLocation();
+  const [showImageModal, setShowImageModal] = useState(false);
+
+  const openImageModal = () => setShowImageModal(true);
+  const closeImageModal = () => setShowImageModal(false);
   const getActiveTab = () => {
     const queryParams = new URLSearchParams(location.search);
     return queryParams.get('tab') || 'profile';
@@ -24,7 +28,7 @@ export function Profile({ profile_id }) {
   const TABS = [
     { id: 'profile', label: 'Profile', content: <ProfileStats profile={profile} /> },
     { id: 'social', label: 'Social', content: <UserSocial user_id={profile_id} /> },
-    { id: 'favorites', label: 'Favorites',content: <UserFavorites user_id={profile_id} /> },
+    { id: 'favorites', label: 'Favorites', content: <UserFavorites user_id={profile_id} /> },
   ];
   if (profile?.is_self) {
     TABS.push({ id: 'attempts', label: 'Attempts', content: <UserAttempts user_id={profile_id} /> });
@@ -60,7 +64,12 @@ export function Profile({ profile_id }) {
           <div className="grid grid-cols-5 pb-4">
             <div className="flex justify-center items-center">
               {profile.profile_picture ? (
-                <img src={profile.profile_picture} alt={`${profile.first_name} ${profile.last_name}`} className="rounded-md w-full h-full" />
+                <img
+                  src={profile.profile_picture}
+                  alt={`${profile.first_name} ${profile.last_name}`}
+                  className="rounded-md max-w-[200px] max-h-[200px] cursor-pointer"
+                  onClick={openImageModal}
+                />
               ) : (
                 <FaUser />
               )}
@@ -93,6 +102,12 @@ export function Profile({ profile_id }) {
               )}
             </div>
           </div>
+          <Modal show={showImageModal} popup size="xl" onClose={closeImageModal}>
+            <Modal.Header />
+            <Modal.Body className="flex justify-center">
+              <img src={profile.profile_picture} alt={`${profile.first_name} ${profile.last_name}`} className="rounded-md" />
+            </Modal.Body>
+          </Modal>
           <div className="grid grid-cols-3">
             <div className="col-span-3 flex">
               {TABS.map(tab => (

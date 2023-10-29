@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { AssessmentsList } from "../components/assessments/AssessmentsList";
 import { AssessmentsFilterCol } from "../components/assessments/AssessmentsFilterCol";
-
+import { useSearchParams } from "react-router-dom";
 
 export function AssessmentsPage() {
+    const [searchParams] = useSearchParams();
+    const searchQuery = searchParams.get("search") || '';
     const [filters, setFilters] = useState({
-        name: '',
+        name: searchQuery,
         subcategories: [],
         languages: []
     });
