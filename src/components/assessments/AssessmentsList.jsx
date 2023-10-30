@@ -21,10 +21,12 @@ export function AssessmentsList({ filters }) {
 
     async function loadAssessments() {
         try {
+            const subcategoryIds = filters.subcategories ? Object.keys(filters.subcategories) : [];
+            const languageIds = filters.languages ? Object.keys(filters.languages) : [];
             const params = {
                 ...(filters.name && { name: filters.name }),
-                ...(filters.subcategories && { subcategory: filters.subcategories }),
-                ...(filters.languages && { languages: filters.languages }),
+                ...(subcategoryIds.length && { subcategory: subcategoryIds.join(',') }),
+                ...(languageIds.length && { languages: languageIds.join(',') }),
                 ...(filters.ordering && { ordering: filters.ordering }),
                 page: currentPage
             };
@@ -42,8 +44,25 @@ export function AssessmentsList({ filters }) {
         }
     }
 
+    const generateFilterSummary = () => {
+        const filterEntries = [
+            filters.name && filters.name.trim() !== "" && `name ${filters.name}`,
+            Object.values(filters.subcategories).length > 0 && `categories ${Object.values(filters.subcategories).join(", ")}`,
+            Object.values(filters.languages).length > 0 && `languages ${Object.values(filters.languages).join(", ")}`
+        ].filter(Boolean);
+
+        if (!filterEntries.length) {
+            return "";
+        }
+
+        return `Filtering by ${filterEntries.join(" and ")}`;
+    };
+
     return (
         <div className="md:col-span-9 p-4 ">
+            <div id="filters-summary">
+                {generateFilterSummary()}
+            </div>
             <div className="text-xl">
                 Found {assessments.length} assessments
             </div>

@@ -16,3 +16,5 @@ export const lostPassword = (data) => usersApi.post('users/send_reset_code/', da
 export const resetPassword = (data) => usersApi.post('users/reset_password/', data)
 export const getUserFollowers = (user_id) => usersApi.get(`follows/?followed=${user_id}`)
 export const getUserFollowed = (user_id) => usersApi.get(`follows/?follower=${user_id}`)
+export const getUsersByPoints = () => usersApi.get('topusers/?ordering=-points')
+

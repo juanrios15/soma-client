@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllCategories } from '../api/assessments.api';
+import { getAllCategories } from '../../api/assessments.api';
 
 
 export function CategoriesList() {
@@ -19,7 +19,7 @@ export function CategoriesList() {
     }
   }
   return (
-    <div className="w-3/4 mx-auto pt-8 text-center">
+    <div className="pt-8 text-center px-4 md:px-40">
       <div className='text-4xl md:text-6xl pb-4 text-start border-b-gray-300 border-b-2 mb-6'>Categories</div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {error && <div>Error: {error.message}</div>}

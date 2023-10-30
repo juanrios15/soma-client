@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Select, { components } from 'react-select';
 import { Button, Label, TextInput } from "flowbite-react"
 import { FaSearch } from 'react-icons/fa';
-import { filterAssessmentsByName } from "../api/assessments.api";
+import { filterAssessmentsByName } from "../../api/assessments.api";
 import { Link, useNavigate } from 'react-router-dom';
 
 const Option = (props) => {

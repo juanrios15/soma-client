@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getFollowedAssessments } from '../../api/assessments.api';
 import { FaFile } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
-
-FaFile
 export function UserFavorites({ user_id }) {
   const [favorites, setFavorites] = useState([]);
   const [error, setError] = useState(null);
@@ -27,7 +26,7 @@ export function UserFavorites({ user_id }) {
       <div>
         {favorites && favorites.map(favorite => (
           <div key={favorite.id} className="grid grid-cols-3 pb-3">
-            <div>
+            <Link to={`/assessments/${favorite.assessment}`} >
               {favorite.picture ? (
                 <img src={favorite.picture} className="rounded-md w-24 h-24 object-cover" />
               ) : (
@@ -35,11 +34,11 @@ export function UserFavorites({ user_id }) {
                   <FaFile />
                 </div>
               )}
-            </div>
+            </Link >
             <div className='col-span-2'>
-              <div className="font-bold">
+              <Link to={`/assessments/${favorite.assessment}`} className="font-bold">
                 {favorite.assessment_name}
-              </div>
+              </Link>
               <div>
                 Language: {favorite.assessment_language}
               </div>

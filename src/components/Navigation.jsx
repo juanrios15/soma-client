@@ -25,7 +25,7 @@ export function Navigation() {
               </span>
             </div>
             <Link to="/rankings" className=" text-lg">Rankings</Link>
-            <Link to="/contact-us" className=" text-lg">Contact us</Link>
+            <Link to="/about-us" className=" text-lg">About us</Link>
           </div>
         </div>
 

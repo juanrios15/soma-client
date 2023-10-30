@@ -4,7 +4,7 @@ import { Navigation } from './components/Navigation'
 import { AssessmentsPage } from './pages/AssessmentsPage'
 import { HomePage } from './pages/HomePage'
 import { RankingsPage } from './pages/RankingsPage'
-import { ContactUsPage } from './pages/ContactUsPage'
+import { AboutUsPage } from './pages/AboutUsPage'
 import { Footer } from './components/Footer'
 import { SideBar } from './components/SideBar'
 import { AssessmentDetailPage } from './pages/AssessmentDetailPage'
@@ -33,7 +33,7 @@ function App() {
             <Route path="/resetpassword" element={<ResetPasswordPage />} />
             <Route path="/profile/:id" element={<ProfilePage />} />
             <Route path="/rankings" element={<RankingsPage />} />
-            <Route path="/contact-us" element={<ContactUsPage />} />
+            <Route path="/about-us" element={<AboutUsPage />} />
           </Routes>
         </div>
         <Footer />

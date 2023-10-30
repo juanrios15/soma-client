@@ -1,9 +1,12 @@
-import { CategoriesList } from "../components/CategoriesList";
-import { SearchAssessmentsBar } from "../components/SearchAssessmentsBar";
+import { CategoriesList } from "../components/home/CategoriesList";
+import { SearchAssessmentsBar } from "../components/home/SearchAssessmentsBar";
+import { Top3 } from "../components/home/Top3";
+
 
 export function HomePage() {
     return <div>
-        <SearchAssessmentsBar/>
-        <CategoriesList/>
+        <SearchAssessmentsBar />
+        <CategoriesList />
+        <Top3 />
     </div>
 }

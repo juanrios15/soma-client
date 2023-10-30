@@ -111,10 +111,10 @@ export function AssessmentsFilterCol({ onNameFilterChange, onToggleSubcategory, 
                 </div>
                 <div className='py-4 text-2xl'>By language</div>
                 {languages.map(language => (
-                    <div key={language.id} className="flex items-center mb-1" onClick={() => onToggleLanguage(language.id)}>
+                    <div key={language.id} className="flex items-center mb-1" onClick={() => onToggleLanguage(language.id, language.name)}>
                         <input
                             type="checkbox"
-                            checked={filters.languages.includes(language.id)}
+                            checked={language.id in filters.languages}
                             readOnly
                         />
                         <label className="ml-2">{language.name}</label>
@@ -137,11 +137,11 @@ export function AssessmentsFilterCol({ onNameFilterChange, onToggleSubcategory, 
                                     <div key={subcategory.id} className="flex items-center mb-1">
                                         <div
                                             className="flex w-full"
-                                            onClick={() => onToggleSubcategory(subcategory.id)}
+                                            onClick={() => onToggleSubcategory(subcategory.id, subcategory.name)}
                                         >
                                             <input
                                                 type="checkbox"
-                                                checked={filters.subcategories.includes(subcategory.id)}
+                                                checked={subcategory.id in filters.subcategories}
                                                 readOnly
                                             />
                                             <label className="ml-2">{subcategory.name}</label>

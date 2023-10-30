@@ -8,41 +8,41 @@ export function AssessmentsPage() {
     const searchQuery = searchParams.get("search") || '';
     const [filters, setFilters] = useState({
         name: searchQuery,
-        subcategories: [],
-        languages: []
+        subcategories: {},
+        languages: {}
     });
     const handleNameFilterChange = (name) => {
         setFilters(prevFilters => ({ ...prevFilters, name }));
     };
 
-    const handleToggleSubcategory = (subcategoryId) => {
+    const handleToggleSubcategory = (subcategoryId, subcategoryName) => {
         setFilters(prevFilters => {
             const { subcategories } = prevFilters;
+            let newSubcategories = { ...subcategories };
 
-            const newSubcategories = subcategories.includes(subcategoryId)
-                ? subcategories.filter(id => id !== subcategoryId)
-                : [...subcategories, subcategoryId];
+            if (subcategoryId in subcategories) {
+                delete newSubcategories[subcategoryId];
+            } else {
+                newSubcategories[subcategoryId] = subcategoryName;
+            }
             return { ...prevFilters, subcategories: newSubcategories };
         });
     };
 
-    const handleToggleLanguage = (languageId) => {
+    const handleToggleLanguage = (languageId, languageName) => {
         setFilters(prevFilters => {
-            const isLanguageSelected = prevFilters.languages.includes(languageId);
+            const { languages } = prevFilters;
+            let newLanguages = { ...languages };
 
-            if (isLanguageSelected) {
-                return {
-                    ...prevFilters,
-                    languages: prevFilters.languages.filter(id => id !== languageId)
-                };
+            if (languageId in languages) {
+                delete newLanguages[languageId];
             } else {
-                return {
-                    ...prevFilters,
-                    languages: [...prevFilters.languages, languageId]
-                };
+                newLanguages[languageId] = languageName;
             }
+            return { ...prevFilters, languages: newLanguages };
         });
     };
+
 
     const handleToggleOrderBy = (orderByValue) => {
         setFilters(prevFilters => {
