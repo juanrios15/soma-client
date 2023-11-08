@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { TextInput, Button } from 'flowbite-react';
 import { FaUser, FaLock, FaEnvelope } from 'react-icons/fa';
 import { useForm, Controller } from 'react-hook-form';
@@ -11,15 +12,30 @@ export function RegisterForm() {
         control,
         handleSubmit,
         formState: { errors },
-        getValues
+        getValues,
+        setValue
     } = useForm({
         defaultValues: {
             username: '',
             email: '',
             password: '',
-            password2: ''
+            password2: '',
+            country: ''
         }
     });
+    useEffect(() => {
+        axios.get('https://ipapi.co/json/')
+            .then(response => {
+                const countryName = response.data.country;
+                console.log('country', countryName)
+                if (countryName) {
+                    setValue('country', countryName);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching country: ', error);
+            });
+    }, [setValue]);
     const navigate = useNavigate();
     const [submitting, setSubmitting] = useState(false);
     const [serverError, setServerError] = useState(null);
@@ -27,17 +43,21 @@ export function RegisterForm() {
     const onSubmit = async (data) => {
         setSubmitting(true);
         setServerError(null);
-
+        const registrationData = { ...data };
+        if (data.country) {
+            registrationData.country = data.country;
+        }
+        console.log("registerdata", registrationData);
         try {
-            const response = await registerUser(data);
+            const response = await registerUser(registrationData);
             try {
                 const loginResponse = await login({
                     username: data.email,
                     password: data.password
                 });
                 localStorage.setItem('token', loginResponse.data.token);
-                navigate('/');
-                window.location.reload();
+                // navigate('/');
+                // window.location.reload();
 
             } catch (loginError) {
                 console.error('Login error:', loginError);

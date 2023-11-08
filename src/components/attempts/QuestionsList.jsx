@@ -22,7 +22,7 @@ export function QuestionsList({ attempt, questions, onEndAttempt }) {
         console.log("User responses:", updatedResponses);
     };
     return (
-        <div className="p-4">
+        <div className="p-4 select-none" style={{ userSelect: "none" }}>
             <Timer
                 assessment_time_limit={attempt.assessment_time_limit}
                 start_time={attempt.start_time}

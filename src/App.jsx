@@ -14,6 +14,7 @@ import { AttemptPage } from './pages/AttemptPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { LostPasswordPage } from './pages/LostPasswordPage'
 import { ResetPasswordPage } from './pages/ResetPasswordPage'
+import { EditUserPage } from './pages/EditUserPage'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/lostpassword" element={<LostPasswordPage />} />
             <Route path="/resetpassword" element={<ResetPasswordPage />} />
             <Route path="/profile/:id" element={<ProfilePage />} />
+            <Route path="/edit-profile/:id" element={<EditUserPage />} />
             <Route path="/rankings" element={<RankingsPage />} />
             <Route path="/about-us" element={<AboutUsPage />} />
           </Routes>

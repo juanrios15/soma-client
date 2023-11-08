@@ -5,7 +5,7 @@ import { UserAttempts } from './UserAttempts';
 import { ProfileStats } from './ProfileStats';
 import { Button, Modal } from 'flowbite-react';
 import { UserSocial } from './UserSocial';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { UserFavorites } from './UserFavorites';
 
 
@@ -79,6 +79,7 @@ export function Profile({ profile_id }) {
               <div className="text-sm">Birthday: {profile.birthday}</div>
               <div className="text-sm">Date Joined: {formatDate(profile.date_joined)}</div>
               <div className="text-sm">Gender: {profile.gender_display}</div>
+              <div className="text-sm">Country: {profile.country_display}</div>
             </div>
             <div className="col-span-2 flex flex-col">
               <div className="grid grid-cols-2">
@@ -96,9 +97,9 @@ export function Profile({ profile_id }) {
             </div>
             <div>
               {profile?.is_self && (
-                <Button variant="primary" className="flex items-center">
+                <Link to={`/edit-profile/${profile_id}`} variant="primary" className="flex items-center">
                   <FaEdit className="mr-2" /> Edit
-                </Button>
+                </Link>
               )}
             </div>
           </div>
