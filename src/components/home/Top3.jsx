@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getUsersByPoints } from '../../api/users.api';
+import { getUsersByRanking } from '../../api/users.api';
 import { FaUserCircle } from 'react-icons/fa';
 
 
@@ -12,7 +12,7 @@ export function Top3() {
 
   async function loadTopUsers() {
     try {
-      const res = await getUsersByPoints();
+      const res = await getUsersByRanking();
       console.log("res", res.data);
       setTopUsers(res.data.results);
     } catch (error) {

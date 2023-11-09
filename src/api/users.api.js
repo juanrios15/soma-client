@@ -18,5 +18,12 @@ export const lostPassword = (data) => usersApi.post('users/send_reset_code/', da
 export const resetPassword = (data) => usersApi.post('users/reset_password/', data)
 export const getUserFollowers = (user_id) => usersApi.get(`follows/?followed=${user_id}`)
 export const getUserFollowed = (user_id) => usersApi.get(`follows/?follower=${user_id}`)
-export const getUsersByPoints = () => usersApi.get('topusers/?ordering=-points')
+export const getUsersByRanking = (rankingType) => {
+    const orderBy = rankingType === '0' ? '-points' : '-average_score';
+    return usersApi.get(`topusers/?ordering=${orderBy}`, { headers: getAuthHeaders() });
+}
+export const getUsersByRankingCategory = (rankingType, category_id) => {
+    const orderBy = rankingType === '0' ? '-total_points' : '-average_score';
+    return usersApi.get(`userpoints/?ordering=${orderBy}&category=${category_id}`, { headers: getAuthHeaders() });
+}
 
