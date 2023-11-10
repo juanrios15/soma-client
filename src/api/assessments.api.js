@@ -32,3 +32,8 @@ export const filterAssessments = (params) => {
     return assessmentsApi.get(url);
 };
 export const getFollowedAssessments = (user_id) => assessmentsApi.get(`follow-assessments/?follower=${user_id}`, { headers: getAuthHeaders() })
+export const followAssessment = (assessmentId) => {
+    return assessmentsApi.post(`follow-assessments/`, { "assessment": assessmentId }, { headers: getAuthHeaders() })
+}
+export const unfollowAssessment = (id) => assessmentsApi.delete(`follow-assessments/${id}`, { headers: getAuthHeaders() })
+

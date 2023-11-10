@@ -18,6 +18,9 @@ export function RankingList({ categoryId, rankingType }) {
                 response = await getUsersByRanking(rankingType);
             } else {
                 response = await getUsersByRankingCategory(rankingType, categoryId);
+                response.data.results.forEach(obj => {
+                    obj.points = obj.total_points;
+                });
             }
             setUsers(response.data.results);
             console.log(response.data.results);

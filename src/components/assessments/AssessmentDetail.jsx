@@ -3,10 +3,37 @@ import React, { useState } from 'react'
 import { FaPencilAlt, FaStar } from 'react-icons/fa';
 import { startAttempt } from '../../api/attempts.api';
 import { useNavigate } from 'react-router-dom';
+import { followAssessment, unfollowAssessment } from '../../api/assessments.api';
+
 
 export function AssessmentDetail({ assessment }) {
     const navigate = useNavigate();
     const [apiError, setApiError] = useState(null);
+    const [assessmentDetails, setAssessmentDetails] = useState({
+        ...assessment,
+        is_following: assessment.is_following,
+    });
+
+    const handleFollowClick = async () => {
+        try {
+            if (assessmentDetails.is_following) {
+                await unfollowAssessment(assessmentDetails.is_following);
+                setAssessmentDetails({
+                    ...assessmentDetails,
+                    is_following: false,
+                });
+            } else {
+                const response = await followAssessment(assessmentDetails.id);
+                setAssessmentDetails({
+                    ...assessmentDetails,
+                    is_following: response.data.id,
+                });
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const handleStartClick = async () => {
         try {
             const data = {
@@ -112,9 +139,11 @@ export function AssessmentDetail({ assessment }) {
                                     onClick={handleStartClick}>
                                     Start attempt
                                 </Button>
-                                <Button type="button" className="ms-2 bg-gray-100 text-stone-700 rounded-r-lg enabled:hover:bg-gray-200">
-                                    <FaStar />
-                                </Button>
+                                {assessmentDetails.is_following !== null && (
+                                    <Button type="button" onClick={handleFollowClick} className="ms-2 bg-gray-100 text-stone-700 rounded-r-lg enabled:hover:bg-gray-200">
+                                        <FaStar className={typeof assessmentDetails.is_following === 'number' ? 'text-yellow-300 text-xl' : 'text-xl'} />
+                                    </Button>
+                                )}
                             </div>
                         </div>
                         <div className="bg-gray-100 mx-2 py-3 rounded-lg shadow-md">
