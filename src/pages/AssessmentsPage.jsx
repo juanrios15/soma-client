@@ -6,9 +6,10 @@ import { useSearchParams } from "react-router-dom";
 export function AssessmentsPage() {
     const [searchParams] = useSearchParams();
     const searchQuery = searchParams.get("search") || '';
+    const searchSubcategory = searchParams.get("subcategory") || '';
     const [filters, setFilters] = useState({
         name: searchQuery,
-        subcategories: {},
+        subcategories: {[searchSubcategory]: searchSubcategory},
         languages: {}
     });
     const handleNameFilterChange = (name) => {

@@ -27,3 +27,7 @@ export const getUsersByRankingCategory = (rankingType, category_id) => {
     return usersApi.get(`userpoints/?ordering=${orderBy}&category=${category_id}`, { headers: getAuthHeaders() });
 }
 
+export const followUser = (userId) => {
+    return usersApi.post(`follows/`, { "followed": userId }, { headers: getAuthHeaders() })
+}
+export const unfollowUser = (id) => usersApi.delete(`follows/${id}`, { headers: getAuthHeaders() })

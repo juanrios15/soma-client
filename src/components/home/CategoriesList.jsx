@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAllCategories } from '../../api/assessments.api';
+import { Link } from 'react-router-dom';
 
 
 export function CategoriesList() {
@@ -18,24 +19,29 @@ export function CategoriesList() {
       setError(error);
     }
   }
+
   return (
     <div className="pt-8 text-center px-4 md:px-40">
-      <div className='text-4xl md:text-6xl pb-4 text-start border-b-gray-300 border-b-2 mb-6'>Categories</div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className='text-3xl md:text-5xl pb-4 text-start border-b-gray-300 border-b-2 mb-6'>Categories</div>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
         {error && <div>Error: {error.message}</div>}
         {categories.map(category => (
-          <div key={category.id} className=" bg-gray-100 p-4 rounded text-stone-700">
+          <div key={category.id} className=" bg-gray-200 p-4 rounded text-stone-800">
             <div className="font-semibold text-3xl mb-2 border-b-2 border-white px-4 pb-2">{category.name}</div>
-            <ul>
+            <div className='grid grid-cols-2 '>
               {category.subcategories.map(subcategory => (
-                <li key={subcategory.name}>
+                <Link to={`/assessments/?subcategory=${subcategory.id}`} key={subcategory.name} className=' py-2'>
+                  <div className='pb-3 font-semibold truncate'>
                   {subcategory.name}
+                  </div>
+                  <div className='flex justify-center'>
                   {subcategory.image && (
-                    <img src={subcategory.image} alt={`${subcategory.name} icon`} />
+                    <img src={subcategory.image} alt={`${subcategory.name} icon`} className='w-24 h-24 rounded'/>
                   )}
-                </li>
+                  </div>
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
         ))}
       </div>

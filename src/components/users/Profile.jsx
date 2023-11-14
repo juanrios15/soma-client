@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { getUserDetail } from '../../api/users.api';
-import { FaUser, FaEdit } from 'react-icons/fa';
+import { followUser, getUserDetail, unfollowUser } from '../../api/users.api';
+import { FaUser, FaEdit, FaUserPlus, FaUserMinus } from 'react-icons/fa';
 import { UserAttempts } from './UserAttempts';
 import { ProfileStats } from './ProfileStats';
 import { Button, Modal } from 'flowbite-react';
@@ -57,6 +57,26 @@ export function Profile({ profile_id }) {
     return `${day}/${month}/${year}`;
   }
 
+  const handleFollowClick = async () => {
+    try {
+      if (typeof profile.is_following === 'number') {
+        await unfollowUser(profile.is_following);
+        setProfile({
+          ...profile,
+          is_following: false,
+        });
+      } else {
+        const response = await followUser(profile.id);
+        setProfile({
+          ...profile,
+          is_following: response.data.id,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       {profile ? (
@@ -80,6 +100,17 @@ export function Profile({ profile_id }) {
               <div className="text-sm">Date Joined: {formatDate(profile.date_joined)}</div>
               <div className="text-sm">Gender: {profile.gender_display}</div>
               <div className="text-sm">Country: {profile.country_display}</div>
+              <div>
+                {profile && !profile.is_self && profile.is_following !== null && (
+                  <Button
+                    type="button"
+                    onClick={handleFollowClick}
+                    className="ms-2 bg-gray-100 text-stone-700 rounded-r-lg enabled:hover:bg-gray-200"
+                  >
+                    {profile.is_following ? <FaUserMinus className='text-blue-600' /> : <FaUserPlus />}
+                  </Button>
+                )}
+              </div>
             </div>
             <div className="col-span-2 flex flex-col">
               <div className="grid grid-cols-2">

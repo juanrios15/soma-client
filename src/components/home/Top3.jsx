@@ -21,9 +21,7 @@ export function Top3() {
   }
   return (
     <div className="pt-8 text-center px-4 md:px-40">
-      <div className="text-4xl mb-4">
-        Top 3 by points
-      </div>
+      <div className='text-3xl md:text-5xl pb-4 text-start border-b-gray-300 border-b-2 mb-6'>Top 3 by points</div>
       <div className="flex justify-center space-x-4">
         {topUsers[1] && (
           <div className="flex flex-col items-center">

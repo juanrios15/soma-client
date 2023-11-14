@@ -11,12 +11,12 @@ export function Navigation() {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <div className="fixed top-0 left-1/2 w-full lg:w-2/3 xl:w-1/2 transform -translate-x-1/2  bg-gray-100 rounded-[15px]">
+    <div className="fixed top-0 left-1/2 w-full lg:w-2/3 xl:w-1/2 transform -translate-x-1/2 bg-cyan-950 rounded-[15px]">
       <div className="container mx-auto p-4">
         <button onClick={toggleMenu} className=" text-stone-700 text-2xl md:hidden">
           {isMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
-        <div className={`${isMenuOpen ? 'block' : 'hidden'} md:block`}>
+        <div className={`${isMenuOpen ? 'block' : 'hidden'} md:block text-white`}>
           <div className={`flex md:justify-between flex-col md:flex-row text-center`}>
             <Link to="/" className=" text-lg">Home</Link>
             <Link to="/assessments" className=" text-lg">Assessments</Link>
