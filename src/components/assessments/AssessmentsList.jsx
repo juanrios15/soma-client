@@ -47,7 +47,7 @@ export function AssessmentsList({ filters }) {
     const generateFilterSummary = () => {
         const filterEntries = [
             filters.name && filters.name.trim() !== "" && `name ${filters.name}`,
-            Object.values(filters.subcategories).length > 0 && `categories ${Object.values(filters.subcategories).join(", ")}`,
+            Object.values(filters.subcategories).some(subcat => subcat.trim() !== "") && `categories ${Object.values(filters.subcategories).filter(subcat => subcat.trim() !== "").join(", ")}`,
             Object.values(filters.languages).length > 0 && `languages ${Object.values(filters.languages).join(", ")}`
         ].filter(Boolean);
 
