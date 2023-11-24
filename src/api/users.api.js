@@ -9,6 +9,7 @@ const getAuthHeaders = () => {
 };
 
 
+export const loginGoogle = (data) => usersApi.post('users/google_login/', data)
 export const getUser = () => usersApi.get(`users/me/`, { headers: getAuthHeaders() })
 export const getCountries = () => usersApi.get(`countries/`)
 export const getUserDetail = (id) => usersApi.get(`users/${id}`, { headers: getAuthHeaders() })
