@@ -6,7 +6,7 @@ import { Top3 } from "../components/home/Top3";
 export function HomePage() {
     return <div>
         <SearchAssessmentsBar />
-        <CategoriesList />
         <Top3 />
+        <CategoriesList />
     </div>
 }

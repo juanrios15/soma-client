@@ -36,14 +36,14 @@ export function SideBar() {
 
   const renderNoToken = () => (
     <>
-      <div className='flex sm:flex-col items-center justify-center'>
+      <div className='flex lg:flex-col items-center justify-center'>
         <Link
           to="/register"
-          className="flex items-center justify-center flex-col sm:border-b-2 md:py-2 px-1 cursor-pointer text-white">
+          className="flex items-center justify-center flex-col lg:border-b-2 lg:py-2 px-1 cursor-pointer text-white">
           <FaUserPlus className="text-2xl" />
           <span className='text-sm'>Register</span>
         </Link>
-        <Link to="/login" className="flex items-center justify-center flex-col md:py-2 px-1 cursor-pointer text-white">
+        <Link to="/login" className="flex items-center justify-center flex-col lg:py-2 px-1 cursor-pointer text-white">
           <FaSignInAlt className="text-2xl" />
           <span className='text-sm'>Login</span>
         </Link>
@@ -53,8 +53,8 @@ export function SideBar() {
   );
   const renderToken = () => (
     <>
-      <div className='flex sm:flex-col items-end sm:items-center justify-center space-x-2 sm:space-x-0'>
-        <Link to={`/profile/${user.id}`} className="flex flex-col items-center sm:border-b-2 md:py-2 px-1 cursor-pointer text-white">
+      <div className='flex lg:flex-col items-end lg:items-center justify-center space-x-2 lg:space-x-0'>
+        <Link to={`/profile/${user.id}`} className="flex flex-col items-center lg:border-b-2 lg:py-2 px-1 cursor-pointer text-white">
           {user.picture ? (
             <img src={user.picture} className="rounded-md object-cover w-6 h-6" />
           ) : (
@@ -62,15 +62,15 @@ export function SideBar() {
           )}
           <span className='text-sm'>Profile</span>
         </Link>
-        <Link to={`/profile/${user.id}?tab=social`} className="flex flex-col items-center sm:border-b-2 md:py-2 px-1 cursor-pointer text-white">
+        <Link to={`/profile/${user.id}?tab=social`} className="flex flex-col items-center lg:border-b-2 lg:py-2 px-1 cursor-pointer text-white">
           <FaUsers className="text-2xl" />
           <span className='text-sm'>Social</span>
         </Link>
-        <Link to={`/profile/${user.id}?tab=favorites`} className="flex flex-col items-center sm:border-b-2 md:py-2 px-1 cursor-pointer text-white">
+        <Link to={`/profile/${user.id}?tab=favorites`} className="flex flex-col items-center lg:border-b-2 lg:py-2 px-1 cursor-pointer text-white">
           <FaStar className="text-2xl" />
           <span className='text-sm'>Favorites</span>
         </Link>
-        <div onClick={handleLogout} className="flex flex-col items-center md:py-2 px-1 cursor-pointer text-white">
+        <div onClick={handleLogout} className="flex flex-col items-center lg:py-2 px-1 cursor-pointer text-white">
           <FaSignOutAlt className="text-2xl" />
           <span className='text-sm'>Logout</span>
         </div>
@@ -80,7 +80,7 @@ export function SideBar() {
   );
 
   return (
-    <div className="fixed w-full sm:w-auto sm:right-0 sm:top-1/2 sm:transform sm:-translate-y-1/2 bottom-0 sm:bottom-auto bg-cyan-700 p-2 shadow sm:rounded-l-md z-10">
+    <div className="fixed w-full lg:w-auto lg:right-0 lg:top-1/2 lg:transform lg:-translate-y-1/2 bottom-0 lg:bottom-auto bg-teal-900 p-2 shadow lg:rounded-l-md z-10">
       {token && !error ? renderToken() : renderNoToken()}
     </div>
   );

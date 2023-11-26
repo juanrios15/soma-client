@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.container-select input {
+    box-shadow: none !important;
+    outline: none !important;
+  }

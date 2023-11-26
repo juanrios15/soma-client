@@ -1,5 +1,5 @@
 export function AboutUsPage() {
-    return <div className="pt-28 px-4 md:px-40">
+    return <div className="pt-28 px-4 lg:px-40">
         <div className="text-4xl font-bol pb-4">
             About Soma Website
         </div>

@@ -11,9 +11,9 @@ export function Navigation() {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <div className="fixed top-0 left-1/2 w-full lg:w-2/3 xl:w-1/2 transform -translate-x-1/2 bg-cyan-700 sm:rounded-[15px] z-10">
+    <div className="fixed top-0 left-1/2 w-full lg:w-2/3 xl:w-1/2 transform -translate-x-1/2 bg-teal-900 sm:rounded-[15px] z-10">
       <div className="flex md:hidden container mx-auto p-2 justify-between">
-        <button onClick={toggleMenu} className=" text-stone-700 text-2xl md:hidden">
+        <button onClick={toggleMenu} className=" text-white text-2xl md:hidden">
           {isMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
         <div className="md:hidden rounded-full h-10 w-10">

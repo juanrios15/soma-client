@@ -16,6 +16,7 @@ export const finalizeAttempt = (attempt_id, data) => {
     const config = { 
         headers: getAuthHeaders() 
     };
-
+    
     return attemptsApi.post(endpoint, data, config);
 }
+export const globalStats = () => attemptsApi.get('global_stats/')

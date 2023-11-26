@@ -29,7 +29,7 @@ export function AssessmentDetailPage() {
     }
 
     return (
-        <div className='pt-28 px-4 md:px-40'>
+        <div className='pt-28 px-4 lg:px-40'>
             <AssessmentDetail assessment={assessment} />
         </div>
     );
