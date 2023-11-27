@@ -11,7 +11,7 @@ const Option = (props) => {
             <components.Option {...props}>
                 <Link to={`/assessments/?search=${props.data.label}`} className="text-blue-500">
                     <div>
-                        Or search by {props.data.label}
+                        Or search by: {props.data.label}
                     </div>
                 </Link>
             </components.Option>
@@ -20,11 +20,16 @@ const Option = (props) => {
     return (
         <components.Option {...props}>
             <Link to={`/assessments/${props.data.value}`}>
-                <div>
-                    {props.data.label}
-                </div>
-                <div className="italic text-gray-400">
-                    {props.data.subcategory_name}
+                <div className='flex items-center'>
+                    <img src={props.data.subcategory_image} alt={`${props.data.subcategory_name} icon`} className='w-8 h-8 rounded me-3' />
+                    <div>
+                        <div>
+                            {props.data.label}
+                        </div>
+                        <div className="italic text-gray-400">
+                            {props.data.subcategory_name}
+                        </div>
+                    </div>
                 </div>
             </Link>
         </components.Option>
@@ -57,6 +62,7 @@ export function SearchAssessmentsBar() {
                     const newResults = res.data.results.slice(0, 5).map(item => ({
                         value: item.id,
                         label: item.name,
+                        subcategory_image: item.subcategory_image,
                         subcategory_name: item.subcategory_name
                     }));
                     newResults.push({
