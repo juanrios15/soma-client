@@ -78,28 +78,38 @@ export function Profile({ profile_id }) {
   };
 
   return (
-    <div>
+    <div className='md:w-2/3'>
       {profile ? (
         <>
-          <div className="grid grid-cols-5 pb-4">
-            <div className="flex justify-center items-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 p-3 bg-gray-50 rounded-lg">
+            <div className="flex justify-center items-center ">
               {profile.profile_picture ? (
                 <img
                   src={profile.profile_picture}
                   alt={`${profile.first_name} ${profile.last_name}`}
-                  className="rounded-md max-w-[200px] max-h-[200px] cursor-pointer"
+                  className="rounded-full w-48 h-48 cursor-pointer border-4 border-gray-200"
                   onClick={openImageModal}
                 />
               ) : (
                 <FaUser />
               )}
             </div>
-            <div className="flex flex-col ps-4">
+            <div className="flex flex-col ps-4 justify-center">
               <div className="text-2xl font-bold">{profile.first_name} {profile.last_name}</div>
               <div className="text-sm">Birthday: {profile.birthday}</div>
               <div className="text-sm">Date Joined: {formatDate(profile.date_joined)}</div>
               <div className="text-sm">Gender: {profile.gender_display}</div>
               <div className="text-sm">Country: {profile.country_display}</div>
+              {profile.country_flag ? (
+                <img
+                  src={`http://localhost:8000/${profile.country_flag}`}
+                  alt={`${profile.country_display}`}
+                  className="rounded w-4 h-4"
+                  onClick={openImageModal}
+                />
+              ) : (
+                <FaUser />
+              )}
               <div>
                 {profile && !profile.is_self && profile.is_following !== null && (
                   <Button
@@ -111,28 +121,32 @@ export function Profile({ profile_id }) {
                   </Button>
                 )}
               </div>
-            </div>
-            <div className="col-span-2 flex flex-col">
-              <div className="grid grid-cols-2">
-                <div className="font-bold">Followers</div>
-                <div>{profile.follower_count}</div>
-              </div>
-              <div className="grid grid-cols-2">
-                <div className="font-bold">Following</div>
-                <div>{profile.following_count}</div>
-              </div>
-              <div className="grid grid-cols-2 items-center">
-                <div className="font-bold">Assessments Followed</div>
-                <div className=''>{profile.following_assessments_count}</div>
+              <div>
+                {profile?.is_self && (
+                  <Link to={`/edit-profile/${profile_id}`} variant="primary" className="flex items-center">
+                    <FaEdit className="mr-2" /> Edit
+                  </Link>
+                )}
               </div>
             </div>
             <div>
-              {profile?.is_self && (
-                <Link to={`/edit-profile/${profile_id}`} variant="primary" className="flex items-center">
-                  <FaEdit className="mr-2" /> Edit
-                </Link>
-              )}
+              <div className="flex flex-col md:flex-row p-4 justify-center items-center space-x-2">
+                <div className="flex flex-col items-center justify-center bg-white rounded-lg p-2">
+                  <div className='text-2xl font-bold'>{profile.follower_count}</div>
+                  <div>Followers</div>
+                </div>
+                <div className="flex flex-col items-center justify-center bg-white rounded-lg p-2">
+                  <div className="text-2xl font-bold">{profile.following_count}</div>
+                  <div>Following</div>
+                </div>
+              </div>
+              <div className="md:col-span-2 flex flex-col items-center justify-center bg-white rounded-lg p-1 text-center">
+                <div className="text-2xl font-bold">{profile.following_assessments_count}</div>
+                <div>Assessments Followed</div>
+              </div>
             </div>
+
+
           </div>
           <Modal show={showImageModal} popup size="xl" onClose={closeImageModal}>
             <Modal.Header />
